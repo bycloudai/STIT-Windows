@@ -60,41 +60,38 @@ To produce such a directory from an existing video, we recommend using ffmpeg:
 ffmpeg -i "video.mp4" "video_frames/out%04d.png"
 ```
 
+create a folder corresponding to your video's name.
+
+eg.
+```
+ffmpeg -i "elons.mp4" "elons/out%04d.png"
+```
+
 ## Example Videos
 The videos used to produce our results can be downloaded from the following 
 [Link](https://drive.google.com/file/d/1ZzpUJSq3Z8ZU8MKfvZ8w8MayMDxLBEy1/view?usp=sharing).
 
 
 ## Inversion
-To invert a video run:
+This needs to be done for every new video. To invert a video run:
 
-```
-python train.py --input_folder /path/to/images_dir \
- --output_folder /path/to/experiment_dir \
- --run_name RUN_NAME \
- --num_pti_steps NUM_STEPS
+```sh
+python train.py --input_folder </path/to/images_dir> --output_folder </path/to/experiment_dir> --run_name <RUN_NAME> --num_pti_steps <NUM_STEPS>
 ```
 This includes aligning, cropping, e4e encoding and PTI
 
 For example:
 
-```
-python train.py --input_folder /data/obama \
- --output_folder training_results/obama \
- --run_name obama \
- --num_pti_steps 80
+```sh
+python train.py --input_folder elons --output_folder edits_elons --run_name elons --num_pti_steps 80
 ```
 
-Weights and biases logging is disabled by default. to enable, add --use_wandb
+Weights and biases logging is disabled by default. to enable, add `--use_wandb`
 
 ## Naive Editing 
 To run edits without stitching tuning:
-```
-python edit_video.py --input_folder /path/to/images_dir \
- --output_folder /path/to/experiment_dir \
- --run_name RUN_NAME \
- --edit_name EDIT_NAME \
- --edit_range EDIT_RANGE
+```sh
+python edit_video.py --input_folder </path/to/images_dir> --output_folder </path/to/experiment_dir> --run_name <RUN_NAME> --edit_name <EDIT_NAME> --edit_range <EDIT_RANGE>
 ```
 
 edit_range determines the strength of the edits applied.
@@ -103,26 +100,17 @@ for example, if we use `--edit_range 1 5 2`,
 we will apply edits with strength 1, 3 and 5.
 
 
-For young Obama use:
+eg. For young Obama use:
 
-```
-python edit_video.py --input_folder /data/obama \
- --output_folder edits/obama/ \
- --run_name obama \
- --edit_name age \
- --edit_range -8 -8 1 \
+```sh
+python edit_video.py --input_folder /data/obama --output_folder edits/obama/ --run_name obama --edit_name age --edit_range -8 -8 1 
 ```
 
 ## Editing + Stitching Tuning
 
-To run edits with stitching tuning:
-```
-python edit_video_stitching_tuning.py --input_folder /path/to/images_dir \
- --output_folder /path/to/experiment_dir \
- --run_name RUN_NAME \
- --edit_name EDIT_NAME \
- --edit_range EDIT_RANGE \
- --outer_mask_dilation MASK_DILATION
+To run edits with **stitching tuning**:
+```sh
+python edit_video_stitching_tuning.py --input_folder </path/to/images_dir> --output_folder </path/to/experiment_dir> --run_name <RUN_NAME> --edit_name <EDIT_NAME> --edit_range <EDIT_RANGE> --outer_mask_dilation <MASK_DILATION>
 ```
 
 We support early breaking the stitching tuning process, when the loss reaches a specified threshold.  
@@ -132,86 +120,47 @@ For videos with a simple background to reconstruct (e.g Obama, Jim, Emma Watson,
 For videos where a more exact reconstruction of the background is required (e.g Michael Scott), we use ```THRESHOLD=0.002```.  
 Early breaking is disabled by default.
 
+For young Elon use:
+
+```
+python edit_video_stitching_tuning.py --input_folder elons --output_folder edits/elons/ --run_name obama --edit_name age --edit_range -8 -8 1 --outer_mask_dilation 50
+```
+
 For young Obama use:
 
 ```
-python edit_video_stitching_tuning.py --input_folder /data/obama \
- --output_folder edits/obama/ \
- --run_name obama \
- --edit_name age \
- --edit_range -8 -8 1 \
- --outer_mask_dilation 50
+python edit_video_stitching_tuning.py --input_folder /data/obama --output_folder edits/obama/ --run_name obama --edit_name age --edit_range -8 -8 1 --outer_mask_dilation 50
 ```
 
 For gender editing on Obama use:
 
 ```
-python edit_video_stitching_tuning.py --input_folder /data/obama \
- --output_folder edits/obama/ \
- --run_name obama \
- --edit_name gender \
- --edit_range -6 -6 1 \
- --outer_mask_dilation 50
+python edit_video_stitching_tuning.py --input_folder /data/obama --output_folder edits/obama/ --run_name obama --edit_name gender --edit_range -6 -6 1 --outer_mask_dilation 50
 ```
 
 For young Emma Watson use:
 
 ```
-python edit_video_stitching_tuning.py --input_folder /data/emma_watson \
- --output_folder edits/emma_watson/ \
- --run_name emma_watson \
- --edit_name age \
- --edit_range -8 -8 1 \
- --outer_mask_dilation 50
+python edit_video_stitching_tuning.py --input_folder /data/emma_watson --output_folder edits/emma_watson/ --run_name emma_watson --edit_name age --edit_range -8 -8 1 --outer_mask_dilation 50
 ```
 For smile removal on Emma Watson use:
 ```
-python edit_video_stitching_tuning.py --input_folder /data/emma_watson \
- --output_folder edits/emma_watson/ \
- --run_name emma_watson \
- --edit_name smile \
- --edit_range -3 -3 1 \
- --outer_mask_dilation 50
+python edit_video_stitching_tuning.py --input_folder /data/emma_watson --output_folder edits/emma_watson/ --run_name emma_watson --edit_name smile --edit_range -3 -3 1 --outer_mask_dilation 50
 ```
 
 For Emma Watson lipstick editing use: (done with styleclip global direction)
 
 ```
-python edit_video_stitching_tuning.py --input_folder /data/emma_watson \
- --output_folder edits/emma_watson/ \
- --run_name emma_watson \
- --edit_type styleclip_global \
- --edit_name lipstick \
- --neutral_class "Face" \
- --target_class "Face with lipstick" \
- --beta 0.2 \
- --edit_range 10 10 1 \
- --outer_mask_dilation 50
+python edit_video_stitching_tuning.py --input_folder /data/emma_watson --output_folder edits/emma_watson/ --run_name emma_watson --edit_type styleclip_global --edit_name lipstick --neutral_class "Face" --target_class "Face with lipstick" --beta 0.2 --edit_range 10 10 1 --outer_mask_dilation 50
 ```
 
 For Old + Young Jim use (with early breaking):
 
 ```
-python edit_video_stitching_tuning.py --input_folder datasets/jim/ \
- --output_folder edits/jim \
- --run_name jim \
- --edit_name age \
- --edit_range -8 8 2 \
- --outer_mask_dilation 50 \
- --border_loss_threshold 0.005
+python edit_video_stitching_tuning.py --input_folder datasets/jim/ --output_folder edits/jim --run_name jim --edit_name age --edit_range -8 8 2 --outer_mask_dilation 50 --border_loss_threshold 0.005
  ```
 
-For smiling Kamala Harris:
-```
-python edit_video_stitching_tuning.py \
- --input_folder datasets/kamala/ \
- --output_folder edits/kamala \
- --run_name kamala \
- --edit_name smile \
- --edit_range 2 2 1 \
- --outer_mask_dilation 50 \
- --border_loss_threshold 0.005
-```
+My fork edits end here.
 
 ## Example Results
 
