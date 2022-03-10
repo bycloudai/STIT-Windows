@@ -1,5 +1,4 @@
 pillow>=9.0.1
-dlib>=19.22.1
 numpy>=1.20.3
 scipy>=1.7.1
 scikit-image>=0.18.3
