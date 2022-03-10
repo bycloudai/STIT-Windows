@@ -3,13 +3,9 @@ import os
 import click
 import torch
 from tqdm import tqdm
+import clip
 
 from configs import paths_config
-try:
-    import clip
-except ImportError:
-    print('Warning: clip is not installed, styleclip edits will not work')
-    pass
 
 imagenet_templates = [
     'a bad photo of a {}.',
@@ -111,6 +107,8 @@ def zeroshot_classifier(model, classnames, templates):
 
 
 def get_direction(neutral_class, target_class, beta, model=None, di=None):
+    import clip
+
     if di is None:
         di = torch.from_numpy(np.load(paths_config.styleclip_fs3)).cuda()
 
@@ -139,6 +137,7 @@ def get_direction(neutral_class, target_class, beta, model=None, di=None):
 @click.option('-t', '--target_class', type=str, required=True)
 @click.option('-o', '--output_path', type=str, required=True)
 def main(neutral_class, target_class, output_path):
+    import clip
     di = torch.from_numpy(np.load(paths_config.styleclip_fs3)).cuda()
     model, preprocess = clip.load("ViT-B/32")
     os.makedirs(output_path, exist_ok=True)
