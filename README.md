@@ -3,7 +3,8 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2201.08361-b31b1b.svg)](https://arxiv.org/abs/2201.08361)
 [![CGP](https://img.shields.io/badge/CGP-Paper%20Summary-blueviolet)](https://www.casualganpapers.com/hiqh_quality_video_editing_stylegan_inversion/Stitch-It-In-Time-explained.html) [![WAI](https://img.shields.io/badge/WhatsAI-Paper%20Summary-blueviolet)](https://www.louisbouchard.ai/stitch-it-in-time/)
 
-
+## This is a forked Windows Installation Tutorial and the main codes will not be updated
+Follow this YouTube [tutorial]() to understand the installation process more easily and if you have any questions feel free to join my [discord](https://discord.gg/sE8R7e45MV) and ask there.
 
 [[Project Page](https://stitch-time.github.io/)]
 > **Stitch it in Time: GAN-Based Facial Editing of Real Videos**<br>
@@ -12,30 +13,45 @@
 >**Abstract**: <br>
 > The ability of Generative Adversarial Networks to encode rich semantics within their latent space has been widely adopted for facial image editing. However, replicating their success with videos has proven challenging. Sets of high-quality facial videos are lacking, and working with videos introduces a fundamental barrier to overcome - temporal coherency. We propose that this barrier is largely artificial. The source video is already temporally coherent, and deviations from this state arise in part due to careless treatment of individual components in the editing pipeline. We leverage the natural alignment of StyleGAN and the tendency of neural networks to learn low frequency functions, and demonstrate that they provide a strongly consistent prior. We draw on these insights and propose a framework for semantic editing of faces in videos, demonstrating significant improvements over the current state-of-the-art. Our method produces meaningful face manipulations, maintains a higher degree of temporal consistency, and can be applied to challenging, high quality, talking head videos which current methods struggle with.
 
+# Setup
+You only need to do the following steps once in this setup section.
+
 ## Requirements
 
-- Pytorch(tested with 1.10, should work with 1.8/1.9 as well) + torchvision, Follow <https://pytorch.org/> 
-  for pytorch installation instructions.
-- CUDA toolkit 11.0 or later. Make sure you have the requirements listed here: 
-  <https://github.com/NVlabs/stylegan2-ada-pytorch#requirements>
-- For the rest of the requirements, use: ```pip install -r requirements.txt```
-- To perform StyleCLIP edits, install clip with:
+- NVIDIA GPU
+- [Anaconda3 Prompt](https://www.anaconda.com/products/individual)
+- [VSBuildTools](https://github.com/bycloudai/InstallVSBuildToolsWindows)
 
-```
+## Setup The Environment
+Download the codes from this repository and `cd` on your Anaconda prompt to the folder. 
+
+```sh
+conda create -n STIT python=3.8
+conda activate STIT
+pip install -r requirements.txt
+pip install cmake
+pip install dlib
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 pip install git+https://github.com/openai/CLIP.git
 ```
 
-### Pretrained models
-
+## Download Pretrained models
 In order to use this project you need to download pretrained models from the following 
 [Link](https://drive.google.com/file/d/1cDvUHPTZQAEWvfiK9C0nDuI9C3Qdgbbp/view?usp=sharing).
 
-Unzip it inside the project's main directory.
+Unzip it inside the project's main directory, and the file structure should look like this
+```
+📂STIT/ # this is root
+├── 📂pretrained_models/
+│	├── 📜79999_iter.pth
+│	├── 📜e4e_ffhq_encode.pt
+│	├── 📜ffhq.pkl
+│	└── 📜shape_predictor_68_face_landmarks.dat
+│...
+```
 
-You can use the download_models.sh script (requires installing gdown with `pip install gdown`)
-
-Alternatively, you can unzip the models to a location of your choice and update `configs/path_config.py` accordingly.
-
+# Main Code
+Run the AI! Where you start running the codes of the AI and a reminder that you just need to start here when you already setup the environment once. Just remember to activate the virtual environment with `conda activate STIT`
 
 ## Splitting videos into frames
 Our code expects videos in the form of a directory with individual frame images.
