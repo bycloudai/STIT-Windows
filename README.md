@@ -124,7 +124,7 @@ Early breaking is disabled by default.
 For young Elon use:
 
 ```
-python edit_video_stitching_tuning.py --input_folder elons --output_folder edits/elons/ --run_name obama --edit_name age --edit_range -8 -8 1 --outer_mask_dilation 50
+python edit_video_stitching_tuning.py --input_folder elons --output_folder edits/elons/ --run_name elons --edit_name age --edit_range -8 -8 1 --outer_mask_dilation 50
 ```
 
 For young Obama use:
