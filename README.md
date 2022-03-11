@@ -51,7 +51,7 @@ Unzip it inside the project's main directory, and the file structure should look
 ```
 
 # Main Code
-Run the AI! Where you start running the codes of the AI and a reminder that you just need to start here when you already setup the environment once. Just remember to activate the virtual environment with `conda activate STIT`
+Run the AI! Where you start running the codes of the AI and a reminder that you just need to start here when you already setup the environment once. Just remember to activate the virtual environment with `conda activate STIT`, and `cd` into the right file directory.
 
 ## Splitting videos into frames
 Our code expects videos in the form of a directory with individual frame images.
