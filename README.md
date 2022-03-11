@@ -4,7 +4,7 @@
 [![CGP](https://img.shields.io/badge/CGP-Paper%20Summary-blueviolet)](https://www.casualganpapers.com/hiqh_quality_video_editing_stylegan_inversion/Stitch-It-In-Time-explained.html) [![WAI](https://img.shields.io/badge/WhatsAI-Paper%20Summary-blueviolet)](https://www.louisbouchard.ai/stitch-it-in-time/)
 
 ## This is a forked Windows Installation Tutorial and the main codes will not be updated
-Follow this YouTube [tutorial]() to understand the installation process more easily and if you have any questions feel free to join my [discord](https://discord.gg/sE8R7e45MV) and ask there.
+Follow this YouTube [tutorial](https://youtu.be/NC_IWQkhCoo) to understand the installation process more easily and if you have any questions feel free to join my [discord](https://discord.gg/sE8R7e45MV) and ask there.
 
 [[Project Page](https://stitch-time.github.io/)]
 > **Stitch it in Time: GAN-Based Facial Editing of Real Videos**<br>
